@@ -2,7 +2,7 @@ const express = require('express');
 
 const configViewEngine = (app) => {
     app.set('views', './src/views');
-    app.set('view endgine', 'ejs');
+    app.set('view engine', 'ejs');
 
     // config static files
     app.use(express.static('./src/public'));
