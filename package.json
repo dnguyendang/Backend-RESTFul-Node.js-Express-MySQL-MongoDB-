@@ -1,0 +1,27 @@
+{
+  "name": "backend0",
+  "version": "1.0.0",
+  "description": "backend from zero",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnguyendang/Fullstack.git"
+  },
+  "keywords": [
+    "nodejs",
+    "react"
+  ],
+  "author": "DangDung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dnguyendang/Fullstack/issues"
+  },
+  "homepage": "https://github.com/dnguyendang/Fullstack#readme",
+  "dependencies": {
+    "express": "4.18.2"
+  }
+}
