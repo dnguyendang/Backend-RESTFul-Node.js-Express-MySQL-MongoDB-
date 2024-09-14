@@ -1,14 +1,21 @@
-const { createServer } = require('http'); //node.js 
+// express framework 
+require('dotenv').config();
+const express = require('express');  // commonjs
+const configViewEngine = require('./src/config/viewEngine');
+const webRoutes = require('./src/routes/web');
 
-const hostname = '127.0.0.1'; //localhost 1->25 
-const port = 3000;
+const app = express(); // app express
+const port = process.env.PORT || 8080; // port => hardcode, .uat, .prod
+const hostname = process.env.HOST_NAME;
 
-const server = createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World \n with me');
-});
+// // config template engine 
+// app.set('views', './src/views');
+// app.set('view endgine', 'ejs');
+configViewEngine(app);
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+// khai bao route
+app.use('/', webRoutes);
+
+app.listen(port, hostname, () => {
+    console.log(`Example app listening on port ${port}`)
+})
