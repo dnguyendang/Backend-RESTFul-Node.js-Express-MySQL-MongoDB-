@@ -1,5 +1,3 @@
-
-
 const User = require("../models/user");
 
 const getUsersAPI = async (req, res) => {
@@ -32,8 +30,18 @@ const putUpdateUserAPI = async (req, res) => {
     })
 }
 
+const deleteDeleteUserAPI = async (req, res) => {
+    let id = req.body.id;
+    let user = await User.deleteOne({ _id: id });
+    return res.status(200).json({
+        EC: 0,
+        data: user
+    })
+}
+
 module.exports = {
     getUsersAPI,
     postCreateUserAPI,
-    putUpdateUserAPI
+    putUpdateUserAPI,
+    deleteDeleteUserAPI
 }
