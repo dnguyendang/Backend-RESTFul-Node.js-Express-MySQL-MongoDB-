@@ -41,13 +41,11 @@ const getDeletePage = async (req, res) => {
     const userId = req.params.id;
     let result = await getUserbyUserId(userId);
     return res.render('delete.ejs', { user: result });
-    // res.redirect('/');
 }
 
 const postDeleteUser = async (req, res) => {
     let id = req.body.id;
     await deleteUserbyUserId(id);
-    // res.send('Deleted user succeed!');
     res.redirect('/');
 }
 
