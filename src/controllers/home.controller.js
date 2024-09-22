@@ -16,10 +16,8 @@ const getEyes = (req, res) => {
 }
 
 const postCreateUser = async (req, res) => {
-    // let email = req.body.email;
     let { email, name, city } = req.body;
     let results = await createUser(email, name, city);
-    // res.send('Created user succeed!');
     res.redirect('/');
 }
 
@@ -36,7 +34,6 @@ const getUpdatePage = async (req, res) => {
 const postUpdateUser = async (req, res) => {
     let { id, email, name, city } = req.body;
     await updateUserbyUserId(id, email, name, city);
-    // res.send('Updated user succeed!');
     res.redirect('/');
 }
 
