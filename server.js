@@ -3,7 +3,10 @@ require('dotenv').config();
 const express = require('express');  // commonjs
 const configViewEngine = require('./src/config/viewEngine');
 const webRoutes = require('./src/routes/web');
+const apiRoutes = require('./src/routes/api');
+
 const connection = require('./src/config/database');
+
 const app = express(); // app express
 const port = process.env.PORT || 8080; // port => hardcode, .uat, .prod
 const hostname = process.env.HOST_NAME;
@@ -15,8 +18,9 @@ app.use(express.urlencoded({ extended: true })); // for form data
 // config template engine 
 configViewEngine(app);
 
-// declare  route
+// declare route
 app.use('/', webRoutes);
+app.use('/v/api/', apiRoutes);
 
 //test connection
 (async () => {
