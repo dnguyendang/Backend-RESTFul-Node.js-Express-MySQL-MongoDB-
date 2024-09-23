@@ -11,10 +11,10 @@ const customerSchema = new mongoose.Schema({
     image: String,
     description: String,
 }, {
-    timestamps: true,
+    timestamps: true, // createdAt, updatedAt automatically added
 }
 );
 
 const Customer = mongoose.model('customer', customerSchema);
 
-module.exports = Customer;
+module.exports = Customer; 
