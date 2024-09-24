@@ -17,7 +17,7 @@ const uploadSingleFile = async (fileObject) => {
         await fileObject.mv(finalPath);
         return {
             status: 'success',
-            path: 'link-image',
+            path: finalPath,
             error: null
         }
     } catch (error) {

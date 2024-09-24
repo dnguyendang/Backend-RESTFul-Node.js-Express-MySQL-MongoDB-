@@ -24,7 +24,7 @@ configViewEngine(app);
 
 // declare route
 app.use('/', webRoutes);
-app.use('/v/api/', apiRoutes);
+app.use('/v1/api/', apiRoutes);
 
 // test connection
 (async () => {
