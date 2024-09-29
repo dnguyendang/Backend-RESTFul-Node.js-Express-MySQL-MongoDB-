@@ -1,5 +1,6 @@
 const { uploadSingleFile } = require('../services/file.service')
-const { createCustomerService, createArrayCustomerService, getAllCustomersService, updateCustomerService } = require("../services/customer.service")
+const { createCustomerService, createArrayCustomerService, getAllCustomersService,
+    updateCustomerService, deleteCustomerService, deleteArrayCustomerService } = require("../services/customer.service")
 
 
 //  {key : value}
@@ -49,11 +50,20 @@ module.exports = {
     },
 
     getAllCustomers: async (req, res) => {
-        let customers = await getAllCustomersService();
+        console.log(req.query);
+        let limit = req.query.limit;
+        let page = req.query.page;
+        let result = null;
+
+        if (limit && page) {
+            result = await getAllCustomersService(limit, page);
+        } else {
+            result = await getAllCustomersService();
+        }
 
         return res.status(200).json({
             EC: 0,
-            data: customers,
+            data: result,
         })
     },
 
@@ -73,6 +83,28 @@ module.exports = {
         return res.status(200).json({
             EC: 0,
             data: customer,
+        })
+    },
+
+    deleteDeleteCustomer: async (req, res) => {
+        let id = req.body.id;
+
+        let customer = await deleteCustomerService(id);
+
+        return res.status(200).json({
+            EC: 0,
+            data: customer,
+        })
+    },
+
+    deleteDeleteArrayCustomer: async (req, res) => {
+        let customerIds = req.body.customerIds;
+
+        let customers = await deleteArrayCustomerService(customerIds);
+
+        return res.status(200).json({
+            EC: 0,
+            data: customers,
         })
     },
 
