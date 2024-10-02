@@ -1,6 +1,8 @@
 const { uploadSingleFile } = require('../services/file.service')
 const { createCustomerService, createArrayCustomerService, getAllCustomersService,
-    updateCustomerService, deleteCustomerService, deleteArrayCustomerService } = require("../services/customer.service")
+    updateCustomerService, deleteCustomerService, deleteArrayCustomerService
+} = require("../services/customer.service")
+
 
 
 //  {key : value}
@@ -50,13 +52,18 @@ module.exports = {
     },
 
     getAllCustomers: async (req, res) => {
-        console.log(req.query);
+        // const query = aqp(
+        //     'status=sent&timestamp>2016-01-01&author.firstName=/john/i&limit=100&skip=50&sort=-timestamp&populate=logs&fields=id,logs.ip'
+        // );
+        // console.log(">>> filter: ", query);
+
         let limit = req.query.limit;
         let page = req.query.page;
+
         let result = null;
 
         if (limit && page) {
-            result = await getAllCustomersService(limit, page);
+            result = await getAllCustomersService(limit, page, req.query);
         } else {
             result = await getAllCustomersService();
         }

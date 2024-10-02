@@ -12,6 +12,11 @@ const { postCreateCustomer, postCreateArrayCustomer,
     deleteDeleteCustomer, deleteDeleteArrayCustomer
 } = require('../controllers/customer.controller')
 
+const { postCreateProject,
+
+} = require('../controllers/project.controller')
+
+
 routerAPI.get('/users', getUsersAPI);
 routerAPI.post('/users', postCreateUserAPI);
 routerAPI.put('/users', putUpdateUserAPI);
@@ -33,6 +38,8 @@ routerAPI.get('/info', (req, res) => {
         data: req.query
     })
 });
+
+routerAPI.post('/projects', postCreateProject);
 
 
 module.exports = routerAPI; // export default 
