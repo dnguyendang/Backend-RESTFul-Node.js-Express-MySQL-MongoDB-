@@ -2,37 +2,57 @@ const { uploadSingleFile } = require('../services/file.service')
 const { createCustomerService, createArrayCustomerService, getAllCustomersService,
     updateCustomerService, deleteCustomerService, deleteArrayCustomerService
 } = require("../services/customer.service")
-
-
+const Joi = require('joi');
 
 //  {key : value}
 module.exports = {
     postCreateCustomer: async (req, res) => {
         let { name, address, phone, email, description } = req.body;
-        let imageUrl = "";
-        if (!req.files || Object.keys(req.files).length === 0) {
-            // return res.status(400).send('No files were uploaded.');
-            // do nothing
-        } else {
-            let result = await uploadSingleFile(req.files.image);
-            imageUrl = result.path;
-        }
 
-        let customerData = {
-            name,
-            address,
-            phone,
-            email,
-            description,
-            imageUrl,
-        }
-
-        let customer = await createCustomerService(customerData)
-
-        return res.status(200).json({
-            EC: 0,
-            data: customer,
+        //validate
+        const schema = Joi.object({
+            name: Joi.string()
+                .alphanum()
+                .min(3)
+                .max(30)
+                .required(),
+            address: Joi.string(),
+            phone: Joi.string().parttern(new RegExp('^[0-9]{8,11}$')),
+            email: Joi.string()
+                .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+            description: Joi.string()
         })
+        const { error } = schema.validate(req.body, { abortEarly: false });
+        console.log(">>> validate >>>", error)
+
+        if (error) {
+            return error;
+        } else {
+            let imageUrl = "";
+            if (!req.files || Object.keys(req.files).length === 0) {
+                // return res.status(400).send('No files were uploaded.');
+                // do nothing
+            } else {
+                let result = await uploadSingleFile(req.files.image);
+                imageUrl = result.path;
+            }
+
+            let customerData = {
+                name,
+                address,
+                phone,
+                email,
+                description,
+                imageUrl,
+            }
+
+            let customer = await createCustomerService(customerData)
+
+            return res.status(200).json({
+                EC: 0,
+                data: customer,
+            })
+        }
     },
 
     postCreateArrayCustomer: async (req, res) => {
